@@ -13,7 +13,7 @@ const SupportPage = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch('http://localhost:5000/support', {
+      const response = await fetch('https://traffic-server-eight.vercel.app', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
