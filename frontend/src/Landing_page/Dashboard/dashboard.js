@@ -27,7 +27,7 @@ const Dashboard = () => {
 
         try {
             // Send the selected video to the Node.js backend
-            const response = await axios.post('http://localhost:5000/api/save-video', {
+            const response = await axios.post('https://traffic-server-eight.vercel.app', {
                 videoName: selectedVideo
             });
 
