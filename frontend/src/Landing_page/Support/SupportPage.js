@@ -8,7 +8,7 @@ const SupportPage = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+axios.defaults.withCredentials = true;
   const handleSubmit = async (e) => {
     e.preventDefault();
     
