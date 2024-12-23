@@ -13,7 +13,7 @@ axios.defaults.withCredentials = true;
     e.preventDefault();
     
     try {
-      const response = await fetch('https://traffic-server-eight.vercel.app', {
+      const response = await fetch('https://traffic-server-eight.vercel.app/support', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
