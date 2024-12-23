@@ -21,7 +21,7 @@ app.use(cors(
 app.use(bodyParser.json());
 
 mongoose
-  .connect("mongodb://localhost:27017/traffic", {
+  .connect("mongodb+srv://harsh12meena:Harsh@2003@mongoatlas.oea483d.mongodb.net/Project0?retryWrites=true&w=majority&appName=mongoatlas", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
