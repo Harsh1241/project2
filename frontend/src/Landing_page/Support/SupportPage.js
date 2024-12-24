@@ -1,48 +1,54 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const SupportPage = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading state
+  const [error, setError] = useState(null); // Error handling
+
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL; // Environment variable
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-axios.defaults.withCredentials = true;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    setLoading(true);
+    setError(null);
+
     try {
-      const response = await fetch('https://traffic-server-eight.vercel.app/api/support', {
-        method: 'POST',
+      const response = await axios.post(`${API_BASE_URL}/api/support`, formData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
       });
-      
-      const result = await response.json();
-      if (response.ok) {
+
+      if (response.status === 200) {
         setSubmitted(true);
-        console.log(result.message);
       } else {
-        console.error('Submission error:', result.message);
+        setError("An error occurred while submitting the form.");
       }
-
-    } catch (error) {
-      console.error('Error submitting form:', error);
+    } catch (err) {
+      setError("Unable to connect to the server. Please try again later.");
+    } finally {
+      setLoading(false);
+      setFormData({ name: "", email: "", message: "" }); // Reset form data
     }
-
-    setFormData({ name: "", email: "", message: "" });
   };
 
-  const resetForm = () => setSubmitted(false);
+  const resetForm = () => {
+    setSubmitted(false);
+    setError(null);
+  };
 
   return (
     <div className="container_support">
       <h1 className="heading">Support</h1>
       <p className="description">Please contact us with your questions.</p>
-      
+
       {submitted ? (
         <div className="thankYouMessage">
           <h2>Thank You!</h2>
@@ -86,9 +92,13 @@ axios.defaults.withCredentials = true;
               placeholder="How can we assist you?"
             />
           </div>
-          <button type="submit" className="submitButton">Submit</button>
+          <button type="submit" className="submitButton" disabled={loading}>
+            {loading ? "Submitting..." : "Submit"}
+          </button>
         </form>
       )}
+
+      {error && <div className="errorMessage">{error}</div>}
     </div>
   );
 };
