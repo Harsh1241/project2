@@ -11,13 +11,12 @@ const mongoose = require('mongoose')
 const app = express();
 
 // Middlewarey
-app.use(cors(
-  {
-    origin: ["https://traffic-optimizer.vercel.app"],
-    methods: ["POST","GET"],
-    credentials: true
-  }
-));
+app.use(cors({
+  origin: 'https://traffic-optimizer-j7xlcgkxg-harsh-meenas-projects.vercel.app', // Frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true
+}));
+
 app.use(bodyParser.json());
 
 mongoose
