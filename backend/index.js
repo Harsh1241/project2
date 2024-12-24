@@ -67,7 +67,7 @@ app.post('/api/save-video', async (req, res) => {
         form.append('video', fs.createReadStream(videoPath));
 
         // Send the video to the Flask server
-        const pythonResponse = await axios.post('http://127.0.0.1:5000/upload_video', form, {
+        const pythonResponse = await axios.post('https://traffic-model.vercel.app/upload_video', form, {
             headers: {
                 ...form.getHeaders(),
             },
