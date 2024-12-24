@@ -37,7 +37,7 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-app.post("/support", async (req, res) => {
+app.post("/api/support", async (req, res) => {
   try {
     const { name, email, message } = req.body;
 
