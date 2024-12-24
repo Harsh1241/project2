@@ -10,11 +10,21 @@ const mongoose = require('mongoose')
 
 const app = express();
 
-// Middlewarey
+// Middleware
+const allowedOrigins = [
+    'https://traffic-optimizer.vercel.app',
+    'https://traffic-optimizer-j7xlcgkxg-harsh-meenas-projects.vercel.app'
+];
+
 app.use(cors({
-  origin: 'https://traffic-optimizer-j7xlcgkxg-harsh-meenas-projects.vercel.app', // Frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true, // Allow cookies and credentials
 }));
 
 app.use(bodyParser.json());
